@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
-import { Linking } from 'react-native';
+import { startActivityAsync, ActivityAction } from 'expo-intent-launcher';
 
 const BluetoothModal = ({ visible, onClose }) => (
     <Modal
@@ -12,8 +12,8 @@ const BluetoothModal = ({ visible, onClose }) => (
         <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
                 <Text style={styles.title}>Bluetooth выключен.</Text>
-                <Text style={{ fontSize: 16, marginVertical: 15 }}>Чтобы использовать приложение дальше вам надо включить блютуз</Text>
-                <TouchableOpacity onPress={() => Linking.openURL('android.settings.BLUETOOTH_SETTINGS').catch(err => console.error('Не удалось открыть настройки Bluetooth', err))} style={styles.textButton}>
+                <Text style={{ fontSize: 16 }}>Чтобы использовать приложение дальше вам надо включить блютуз</Text>
+                <TouchableOpacity onPress={() => startActivityAsync(ActivityAction.BLUETOOTH_SETTINGS)} style={styles.textButton}>
                     <Text style={styles.textButtonText}>Настройки Bluetooth</Text>
                 </TouchableOpacity>
             </View>
@@ -39,23 +39,24 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 15,
         elevation: 5,
+        gap:10
     },
     title: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     textButton: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 6,
+        paddingHorizontal: 15,
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: 'gray',
+        borderWidth: 1,
+        borderColor: '#888',
         backgroundColor: 'white',
         alignSelf: 'flex-end'
     },
     textButtonText: {
-        color: 'black',
-        fontSize: 18,
+        color: '#444',
+        fontSize: 16,
         textAlign: "center"
     },
 });

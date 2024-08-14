@@ -1,28 +1,35 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const DisconnectModal = ({ visible, deviceName, onCancel, onDisconnect }) => (
-  <Modal
-    animationType="slide"
-    transparent={true}
-    visible={visible}
-    onRequestClose={onCancel}
-  >
-    <View style={styles.modalContainer}>
-      <View style={styles.modalContent}>
-        <Text style={{ fontSize: 20, textAlign: "center" }}>Вы точно хотите отключиться от {deviceName}?</Text>
-        <View style={styles.modalButtons}>
-          <TouchableOpacity onPress={onCancel} style={styles.modalButton}>
-            <Text style={{ fontSize: 18 }}>Отмена</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onDisconnect} style={styles.modalButton}>
-            <Text style={{ fontSize: 18 }}>Отключиться</Text>
-          </TouchableOpacity>
+const DisconnectModal = ({ visible, deviceName, onCancel, onDisconnect, navigation }) => {
+  const handleNavigation = () => {
+    onDisconnect();
+    navigation.navigate('BluetoothDevices');
+  };
+
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onRequestClose={onCancel}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={{ fontSize: 18, textAlign: "center" }}>Вы точно хотите отключиться от {deviceName}?</Text>
+          <View style={styles.modalButtons}>
+            <TouchableOpacity onPress={onCancel} style={styles.modalButton}>
+              <Text style={{ fontSize: 16 }}>Отмена</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigation} style={styles.modalButton}>
+              <Text style={{ fontSize: 16 }}>Отключиться</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-  </Modal>
-);
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.5)'
   },
   modalContent: {
-    maxWidth: "70%",
+    maxWidth: "80%",
     backgroundColor: 'white',
     paddingVertical: 20,
     paddingHorizontal: 10,
@@ -51,8 +58,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   modalButton: {
-    borderWidth: 2,
-    borderColor: '#666',
+    borderWidth: 1,
+    borderColor: '#888',
     borderRadius: 10,
     paddingVertical: 6,
     paddingHorizontal: 10,

@@ -1,11 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Pressable } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import Octicons from '@expo/vector-icons/Octicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Linking } from 'react-native';
+import { startActivityAsync, ActivityAction } from 'expo-intent-launcher';
 
 const MenuButton = ({ navigation }) => (
   <TouchableOpacity onPress={() => navigation.navigate('Menu')} style={{ marginLeft: 20 }}>
@@ -19,18 +19,23 @@ const BackButton = ({ navigation }) => (
   </TouchableOpacity>
 );
 
-const SettingsButton = ({ navigation, settingsVisible, setSettingsVisible }) => {
+const SettingsButton = ({settingsVisible, setSettingsVisible }) => {
+  const openBluetoothSettings = () => {
+    startActivityAsync(ActivityAction.BLUETOOTH_SETTINGS);
+    setSettingsVisible(false);
+  };
+
   return (
     <View>
       <TouchableOpacity onPress={() => setSettingsVisible(!settingsVisible)} style={{ marginRight: 20 }}>
         <Entypo name="dots-three-vertical" size={24} color="#666" />
       </TouchableOpacity>
       {settingsVisible && (
-          <View style={styles.settingsPopup}>
-            <TouchableOpacity onPress={() => Linking.openSettings()}>
-              <Text style={styles.settingsText}>Настройки Bluetooth</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.settingsPopup}>
+          <TouchableOpacity onPress={openBluetoothSettings} style={styles.textButton}>
+            <Text style={styles.settingsText}>Настройки Bluetooth</Text>
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   );
@@ -52,7 +57,7 @@ const DeviceInfoButtons = ({ navigation, route, lastConnectedDevice, setDisconne
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
       <FontAwesome name={getBatteryIcon(batteryLevel)} size={24} color="#666" style={{ marginRight: 20 }} />
-        <MaterialCommunityIcons name={connected ? 'bluetooth' : 'bluetooth-off'} size={24} color={connected ? 'green' : '#666'} style={{ marginRight: 20 }} />
+      <MaterialCommunityIcons name={connected ? 'bluetooth' : 'bluetooth-off'} size={24} color={connected ? 'green' : '#666'} style={{ marginRight: 20 }} />
       <TouchableOpacity onPress={() => {
         setDeviceName(deviceName);
         setDisconnectModalVisible(true);
@@ -72,9 +77,9 @@ const styles = StyleSheet.create({
   },
   settingsPopup: {
     position: 'absolute',
-    top:30,
+    top: 30,
     right: 10,
-    width: 180,
+    width: 200,
     backgroundColor: 'white',
     borderRadius: 5,
     padding: 10,
@@ -85,7 +90,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   settingsText: {
-    fontSize: 16,
+    fontSize: 15,
+    color:"#555"
   },
 });
 

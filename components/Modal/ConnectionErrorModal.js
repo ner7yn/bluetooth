@@ -1,22 +1,26 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, Pressable } from 'react-native';
 
 const ConnectionErrorModal = ({ visible, device, onRetry, onClose }) => (
+
     <Modal
         animationType="slide"
         transparent={true}
         visible={visible}
         onRequestClose={onClose}
     >
-        <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-                <Text style={{ fontSize: 20, textAlign: "center", marginVertical: 15 }}>Не удалось подключиться к устройству {device ? device.name : ''}</Text>
-                <TouchableOpacity style={styles.retryButton} onPress={onRetry}>
-                    <Text style={styles.retryButtonText}>Повторить</Text>
-                </TouchableOpacity>
+        <Pressable style={{ flex: 1 }} onPress={onClose}>
+            <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <Text style={{ fontSize: 18, textAlign: "center", marginVertical: 15 }}>Не удалось подключиться к устройству {device ? device.name : ''}</Text>
+                    <TouchableOpacity style={styles.retryButton} onPress={onRetry}>
+                        <Text style={styles.retryButtonText}>Повторить</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </Pressable>
     </Modal>
+
 );
 
 const styles = StyleSheet.create({
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
     },
     modalContent: {
-        maxWidth: "85%",
+        width: "80%",
         backgroundColor: 'white',
         paddingVertical: 20,
         paddingHorizontal: 10,
@@ -39,18 +43,18 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     retryButton: {
-        borderWidth: 2,
-        borderColor: 'gray',
+        borderWidth: 1,
+        borderColor: '#888',
         borderRadius: 10,
         paddingVertical: 6,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         backgroundColor: 'white',
         alignSelf: 'center',
         marginTop: 10
     },
     retryButtonText: {
         color: 'black',
-        fontSize: 18,
+        fontSize: 16,
         textAlign: "center"
     },
 });

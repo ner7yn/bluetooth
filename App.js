@@ -48,6 +48,11 @@ const App = () => {
     );
   }
 
+  const handleDisconnect = () => {
+    setDisconnectModalVisible(false);
+    saveLastConnectedDevice(null);
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={lastConnectedDevice ? "Info" : "BluetoothDevices"}>
@@ -95,6 +100,14 @@ const App = () => {
               <HeaderButtons.MenuButton navigation={navigation} />
             ),
             headerRight: () => (
+              <>
+              <DisconnectModal
+              visible={disconnectModalVisible}
+              deviceName={deviceName}
+              onCancel={() => setDisconnectModalVisible(false)}
+              onDisconnect={handleDisconnect}
+              navigation={navigation}
+            />
               <HeaderButtons.DeviceInfoButtons
                 navigation={navigation}
                 route={route}
@@ -102,21 +115,12 @@ const App = () => {
                 setDisconnectModalVisible={setDisconnectModalVisible}
                 setDeviceName={setDeviceName}
               />
+            </>
             ),
           })}
           initialParams={{ device: lastConnectedDevice }}
         />
       </Stack.Navigator>
-      <DisconnectModal
-        visible={disconnectModalVisible}
-        deviceName={deviceName}
-        onCancel={() => setDisconnectModalVisible(false)}
-        onDisconnect={() => {
-          navigation.navigate('BluetoothDevices');
-          setDisconnectModalVisible(false);
-          saveLastConnectedDevice(null);
-        }}
-      />
     </NavigationContainer>
   );
 };

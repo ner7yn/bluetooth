@@ -7,10 +7,10 @@ const Info = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Информация о подключенном устройстве</Text>
-      <Text>Имя устройства: {device.name}</Text>
+      {/* <Text>Имя устройства: {device.name}</Text>
       <Text>Mac адрес устройства: {device.mac}</Text>
       <Text>Статус подключения: {device.connected ? 'Подключено' : 'Не подключено'}</Text>
-      <Text>Уровень заряда батареи: {device.batteryLevel}%</Text>
+      <Text>Уровень заряда батареи: {device.batteryLevel}%</Text> */}
     </View>
   );
 };
