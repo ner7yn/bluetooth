@@ -4,11 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BluetoothDevices from './components/Page/BluetoothDevices';
 import MenuScreen from './components/Page/Menu';
-import Info from './components/Page/Info';
 import HeaderButtons from './components/HeaderButtons';
 import DisconnectModal from './components/Modal/DisconnectModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import AppMain from './components/Page/main_page/AppMain';
+import BleManagerMock from './BleManagerMock';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const App = () => {
   const [disconnectModalVisible, setDisconnectModalVisible] = useState(false);
   const [deviceName, setDeviceName] = useState('');
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const manager = new BleManagerMock(); // Создаем экземпляр BleManagerMock
 
   useEffect(() => {
     const fetchLastConnectedDevice = async () => {
@@ -55,7 +57,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={lastConnectedDevice ? "Info" : "BluetoothDevices"}>
+      <Stack.Navigator initialRouteName={lastConnectedDevice ? "AppMain" : "BluetoothDevices"}>
         <Stack.Screen
           name="BluetoothDevices"
           component={BluetoothDevices}
@@ -89,8 +91,8 @@ const App = () => {
           })}
         />
         <Stack.Screen
-          name="Info"
-          component={Info}
+          name="AppMain"
+          component={AppMain}
           options={({ navigation, route }) => ({
             headerShown: true,
             headerTitle: '',
@@ -118,7 +120,7 @@ const App = () => {
             </>
             ),
           })}
-          initialParams={{ device: lastConnectedDevice }}
+          initialParams={{ device: lastConnectedDevice, manager }} // Передаем manager в AppMain
         />
       </Stack.Navigator>
     </NavigationContainer>

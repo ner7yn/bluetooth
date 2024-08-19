@@ -104,7 +104,7 @@ const BluetoothDevices = ({ navigation }) => {
             setConnecting(false);
             if (Math.random() > 0.5) {
                 saveLastConnectedDevice(device);
-                navigation.navigate('Info', { device });
+                navigation.navigate('AppMain', { device });
             } else {
                 setFailedDevice(device);
                 setConnectionError(true);
