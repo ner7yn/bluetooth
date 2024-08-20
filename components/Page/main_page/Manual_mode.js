@@ -1,7 +1,7 @@
 // ManualMode.js
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ManualControlModal from '../../Modal/ManualControlModal';
 import ScenarioModal from '../../Modal/ScenarioModal';
@@ -17,7 +17,8 @@ const ManualMode = ({ route }) => {
     const [holdModalVisible, setHoldModalVisible] = useState(false);
     const [savedSettingsModalVisible, setSavedSettingsModalVisible] = useState(false);
     const [savedSettingModalVisible, setSavedSettingModalVisible] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(device.level); // Инициализация с учетом device.level
+    const [selectedIndex, setSelectedIndex] = useState(device.level);
+    console.log(selectedIndex); // Инициализация с учетом device.level
     const [selectedScenario, setSelectedScenario] = useState(null);
     const [scenarios, setScenarios] = useState(initialScenarios);
     const [savedSettings, setSavedSettings] = useState([]);
@@ -171,7 +172,9 @@ const ManualMode = ({ route }) => {
                             style={styles.scrollViewSquare}
                             onPress={() => handleScenarioPress(index)}
                             onLongPress={() => handleScenarioLongPress(index)}
-                        />
+                        >
+                            <Image source={{ uri: scenario?.image }} style={{ width: 100, height: 100, borderRadius: 10, }} />
+                        </Pressable>
                     ))}
                 </ScrollView>
             </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, PermissionsAndroid, Platform, Alert, StyleSheet, Pressable } from 'react-native';
+import { View, ScrollView, PermissionsAndroid, Platform, Alert, StyleSheet, Pressable } from 'react-native';
 import BleManagerMock from '../../BleManagerMock';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -155,17 +155,15 @@ const BluetoothDevices = ({ navigation }) => {
                     visible={bluetoothModalVisible}
                     onClose={() => setBluetoothModalVisible(false)}
                 />
-                <FlatList
-                    style={{ width: "100%" }}
-                    data={devices}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
+                <ScrollView style={{ width: "100%"}}>
+                    {devices.map((device) => (
                         <DeviceItem
-                            device={item}
-                            onPress={() => connectToDevice(item)}
+                            key={device.id}
+                            device={device}
+                            onPress={() => connectToDevice(device)}
                         />
-                    )}
-                />
+                    ))}
+                </ScrollView>
             </View>
         </Pressable>
     );

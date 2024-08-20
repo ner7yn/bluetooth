@@ -4,24 +4,21 @@ import { ProgressBar, Provider as PaperProvider } from 'react-native-paper';
 
 const AutoMode = ({ route }) => {
     const { device, manager } = route.params;
-    const buttons = [1, 2, 3, 4, 5, 6];
-    const [activeButtons, setActiveButtons] = useState(Array(buttons.length).fill(false));
+    const buttonValues = [1, 3, 5, 6, 8, 9];
     const [progress, setProgress] = useState(manager.devices[device.id].level);
-
-    console.log(manager.devices[device.id].level);
 
     useEffect(() => {
         const getProgress = () => {
             const updatedDevice = manager.getDeviceById(device.id);
-            return updatedDevice.level / 6; // Вычисляем прогресс в зависимости от level
+            return updatedDevice.level / 9; // Вычисляем прогресс в зависимости от level
         };
 
         setProgress(getProgress());
     }, [device.id, manager]);
 
     const handleButtonPress = (index) => {
-        const newLevel = buttons[index];
-        setProgress(newLevel);
+        const newLevel = buttonValues[index];
+        setProgress(newLevel / 9); // Обновляем прогресс
         manager.updateDevice(device.id, { level: newLevel }); // Обновляем device через manager
         route.params.device = { ...device, level: newLevel }; // Обновляем device в route.params
         console.log(`New level: ${newLevel}`); // Добавляем лог для проверки
@@ -36,29 +33,30 @@ const AutoMode = ({ route }) => {
             <View style={styles.container}>
                 <Text style={styles.title}>Ценность мобильности</Text>
                 <View style={styles.progressBarContainer}>
+                    <ProgressBar progress={progress} style={styles.progressBar} color='green'/>
                 </View>
                 <View style={styles.card}>
                     <View style={styles.buttonRow}>
-                        {buttons.slice(0, 3).map((button, index) => (
+                        {buttonValues.slice(0, 3).map((value, index) => (
                             <Pressable
                                 key={index}
                                 style={styles.button}
                                 onPress={() => handleButtonPress(index)}
                                 activeOpacity={0.7}
                             >
-                                <Text style={styles.buttonText}>{button}</Text>
+                                <Text style={styles.buttonText}>{index + 1}</Text>
                             </Pressable>
                         ))}
                     </View>
                     <View style={styles.buttonRow}>
-                        {buttons.slice(3, 6).map((button, index) => (
+                        {buttonValues.slice(3, 6).map((value, index) => (
                             <Pressable
                                 key={index + 3}
                                 style={styles.button}
                                 onPress={() => handleButtonPress(index + 3)}
                                 activeOpacity={0.7}
                             >
-                                <Text style={styles.buttonText}>{button}</Text>
+                                <Text style={styles.buttonText}>{index + 4}</Text>
                             </Pressable>
                         ))}
                     </View>
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginBottom: 20,
         fontWeight: 'semibold'
-
     },
     progressBarContainer: {
         width: '80%',
