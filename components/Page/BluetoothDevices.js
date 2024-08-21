@@ -134,7 +134,7 @@ const BluetoothDevices = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
                 <View style={styles.deviceList}>
                     {devices.map((device) => (
                         <DeviceItem

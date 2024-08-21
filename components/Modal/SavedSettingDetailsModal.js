@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     savedSettingTitle: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginVertical: 50
     },
     useSavedSettingButton: {
         width: '100%',

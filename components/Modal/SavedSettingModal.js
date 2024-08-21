@@ -1,8 +1,9 @@
 // Modal/SavedSettingsModal.js
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { TextInput } from 'react-native-paper';
 
 const SavedSettingsModal = ({ 
     visible, 
@@ -63,9 +64,11 @@ const SavedSettingsModal = ({
                     </View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Введите название"
+                        TextInputLabelProp="введите название"
                         value={savedSettingTitle}
                         onChangeText={setSavedSettingTitle}
+                        mode="outlined" // Добавляем границу
+                        theme={{ colors: { primary: 'gray' } }} // Настраиваем цвет границы
                     />
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.resetButton} onPress={handleResetSetting}>
@@ -151,11 +154,6 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
         marginBottom: 20
     },
     buttonContainer: {
