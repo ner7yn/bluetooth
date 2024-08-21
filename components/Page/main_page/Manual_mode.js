@@ -161,6 +161,7 @@ const ManualMode = ({ route }) => {
             <View style={styles.block}>
                 <Text style={[styles.subTtitle, { marginTop: 10 }]}>Ручная настройка</Text>
                 <Pressable style={styles.roundedButton} onPress={() => setModalVisible(true)}>
+                <Image source={{ uri:"" }} style={{ flex:1, borderRadius: 6 }} />
                 </Pressable>
             </View>
             <View style={styles.block}>

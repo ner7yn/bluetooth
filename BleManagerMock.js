@@ -14,6 +14,7 @@ class BleManagerMock {
       { id: '11', name: 'Device 11', connected: true, batteryLevel: 35, mac: "89:AB:CD:EF:01:23", level: 0 },
       { id: '12', name: 'Device 12', connected: false, batteryLevel: 75, mac: "45:67:89:AB:CD:EF", level: 2 },
       { id: '13', name: 'Device 13', connected: true, batteryLevel: 55, mac: "23:45:67:89:AB:CD", level: 4 },
+      { id: '14', name: 'Device 14', connected: true, batteryLevel: 21, mac: "23:D5:67:89:AD:CD", level: 3 },
     ];
   }
 

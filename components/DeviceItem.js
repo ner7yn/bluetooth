@@ -15,6 +15,7 @@ const DeviceItem = ({ device, onPress }) => (
 const styles = StyleSheet.create({
     deviceItem: {
         width: '100%',
+        height:75,
         paddingHorizontal: 10,
         paddingVertical: 10,
         borderBottomWidth: 1,

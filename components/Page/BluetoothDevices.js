@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, PermissionsAndroid, Platform, Alert, StyleSheet, Pressable } from 'react-native';
+import { View, ScrollView, PermissionsAndroid, Platform, Alert, StyleSheet } from 'react-native';
 import BleManagerMock from '../../BleManagerMock';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -133,29 +133,9 @@ const BluetoothDevices = ({ navigation }) => {
     };
 
     return (
-        <Pressable style={styles.overlay} onPress={() => setConnectionError(false)}>
-            <View style={styles.container}>
-                <Spinner
-                    visible={connecting}
-                    textContent={''}
-                    textStyle={styles.spinnerTextStyle}
-                    color="black"
-                    overlayColor="rgba(255, 255, 255, 0.5)"
-                />
-                <ConnectionErrorModal
-                    visible={connectionError}
-                    device={failedDevice}
-                    onRetry={() => {
-                        setConnectionError(false);
-                        connectToDevice(failedDevice);
-                    }}
-                    onClose={() => setConnectionError(false)}
-                />
-                <BluetoothModal
-                    visible={bluetoothModalVisible}
-                    onClose={() => setBluetoothModalVisible(false)}
-                />
-                <ScrollView style={{ width: "100%"}}>
+        <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                <View style={styles.deviceList}>
                     {devices.map((device) => (
                         <DeviceItem
                             key={device.id}
@@ -163,21 +143,45 @@ const BluetoothDevices = ({ navigation }) => {
                             onPress={() => connectToDevice(device)}
                         />
                     ))}
-                </ScrollView>
-            </View>
-        </Pressable>
+                </View>
+            </ScrollView>
+            <Spinner
+                visible={connecting}
+                textContent={''}
+                textStyle={styles.spinnerTextStyle}
+                color="black"
+                overlayColor="rgba(255, 255, 255, 0.5)"
+            />
+            <ConnectionErrorModal
+                visible={connectionError}
+                device={failedDevice}
+                onRetry={() => {
+                    setConnectionError(false);
+                    connectToDevice(failedDevice);
+                }}
+                onClose={() => setConnectionError(false)}
+            />
+            <BluetoothModal
+                visible={bluetoothModalVisible}
+                onClose={() => setBluetoothModalVisible(false)}
+            />
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    overlay: {
-        flex: 1,
-    },
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: "white"
+    },
+    scrollContent: {
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    deviceList: {
+        width: '100%',
+        alignItems: 'center',
     },
     spinnerTextStyle: {
         color: '#FFF'

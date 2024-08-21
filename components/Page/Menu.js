@@ -19,14 +19,14 @@ const Menu = () => {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setPrivacyOpen(!privacyOpen)} activeOpacity={1}>
                 <View style={styles.block}>
-                {securityOpen ? <Octicons name="chevron-down" size={18} color="#333" style={styles.icon} /> :<Octicons name="chevron-right" size={18} color="#333" style={styles.icon} /> }
+                {privacyOpen ? <Octicons name="chevron-down" size={18} color="#333" style={styles.icon} /> :<Octicons name="chevron-right" size={18} color="#333" style={styles.icon} /> }
                     <Text style={styles.title}>Правила конфиденциальности</Text>
                 </View>
                 {privacyOpen && <Text style={styles.text}>Текст о правилах конфиденциальности</Text>}
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setAboutOpen(!aboutOpen)} activeOpacity={1}>
                 <View style={styles.block}>
-                {securityOpen ? <Octicons name="chevron-down" size={18} color="#333" style={styles.icon} /> :<Octicons name="chevron-right" size={18} color="#333" style={styles.icon} /> }
+                {aboutOpen ? <Octicons name="chevron-down" size={18} color="#333" style={styles.icon} /> :<Octicons name="chevron-right" size={18} color="#333" style={styles.icon} /> }
                     <Text style={styles.title}>О приложении</Text>
                 </View>
                 {aboutOpen && <Text style={styles.text}>Текст о приложении</Text>}
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // Устанавливаем направление flex-контейнера в строку
         alignItems: 'center',
     }, icon: {
-        marginRight: 8
+        width:20,
+        height:20
     }
 })
 
